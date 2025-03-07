@@ -14,23 +14,22 @@ With $\theta$ the angular position of the pendulum, $u$ the command being the to
 
 ## Minimise the energy
 
-The initial state is $(\theta, \dot{\theta}) = (\frac{\pi}{2}, 0)$ and the goal is to reach the final state at $t=t_f$ fixed to the equilibrium of the pendulum $(\theta, \dot{\theta}) = (0, 0)$.
+The initial state is $(\theta, \dot{\theta}) = \big( \frac{\pi}{2}, 0 \big)$ and the goal is to reach the final state at $t=t_f$ fixed to the equilibrium of the pendulum $(\theta, \dot{\theta}) = (0, 0)$.
 
 We want to minimise the energy used so the criteria is given by :
 
 $$
-\int_0^{t_f}u^2(t) \mathop{}\!\mathrm{d}t
+\int_0^{t_f}u^2(t) dt
 $$
 
 Let define a state vector
 
 $$
-\bold{z} =
+z =
 \begin{bmatrix}
 \theta \\
 \dot{\theta}
-\end{bmatrix}
-=
+\end{bmatrix} =
 \begin{bmatrix}
 z_1 \\
 z_2
@@ -40,18 +39,17 @@ $$
 The derivative has the following form :
 
 $$
-\frac{d\bold{z}}{dt} = \bold{f}(\bold{z})
+\frac{dz}{dt} = f(z)
 $$
 
 We obtain :
 
 $$
-\frac{d\bold{z}}{dt} = \frac{d}{dt}
+\frac{dz}{dt} = \frac{d}{dt}
 \begin{bmatrix}
 z_1 \\
 z_2
-\end{bmatrix}
-=
+\end{bmatrix} =
 \begin{bmatrix}
 z_2 \\
 -\frac{g}{L}\sin(z_1) - \frac{k}{mL^2}z_2 + \frac{u}{mL^2}
@@ -61,23 +59,21 @@ $$
 The canonical form of the criteria is given by :
 
 $$
-\int_0^{t_f} q \mathop{}\!\mathrm{d}t + \phi(\bold{z}(t_f)) = \int_0^{t_f}u^2(t) \mathop{}\!\mathrm{d}t
+\int_0^{t_f} q dt + \phi(z(t_f)) = \int_0^{t_f}u^2(t) dt
 $$
 
-By identification, we have $q=u^2$ and $\phi(\bold{z}(t_f))=0$. From the transversality conditions we obtain :
+By identification, we have $q=u^2$ and $\phi(z(t_f))=0$. From the transversality conditions we obtain :
 
 $$
-\psi(t_f, \bold{z}(t_f)) =
+\psi(t_f, z(t_f)) =
 \begin{bmatrix}
 \psi_1 \\
 \psi_2
-\end{bmatrix}
-=
+\end{bmatrix} =
 \begin{bmatrix}
 z_1(t_f) \\
 z_2(t_f)
-\end{bmatrix}
-=
+\end{bmatrix} =
 \begin{bmatrix}
 0 \\
 0
@@ -87,7 +83,7 @@ $$
 Let 
 
 $$
-\bm{\lambda} =
+\lambda =
 \begin{bmatrix}
 \lambda_1 \\
 \lambda_2
@@ -97,13 +93,13 @@ $$
 With $\lambda_1$ the costate associated to $x_1$ and $\lambda_2$ the costate associated to $x_2$, we define the hamiltonian $H$ such as :
 
 $$
-H = q + \bm{\lambda}^T \bold{f}(\bold{z}) = u^2 + \lambda_1 z_2 + \lambda_2 \bigg( -\frac{g}{L}\sin(z_1) - \frac{k}{mL^2}z_2 + \frac{u}{mL^2} \bigg)
+H = q + \lambda^T f(z) = u^2 + \lambda_1 z_2 + \lambda_2 \bigg( -\frac{g}{L}\sin(z_1) - \frac{k}{mL^2}z_2 + \frac{u}{mL^2} \bigg)
 $$
 
 We write the Euler-Lagrange equations of the hamiltonian. First for the costates :
 
 $$
-\bm{\dot{\lambda}} = - \frac{\partial H}{\partial \bold{z}} \Longleftrightarrow
+\dot{\lambda} = - \frac{\partial H}{\partial z} \Longleftrightarrow
 \begin{cases} \dot{\lambda}_1 = - \frac{\partial H}{\partial z_1} = \frac{\lambda_2 g}{L} \cos(z_1) \\
 \dot{\lambda}_2 = - \frac{\partial H}{\partial z_2} = -\lambda_1 + \frac{k \lambda_2}{mL^2}
 \end{cases}
@@ -112,13 +108,13 @@ $$
 Then for the command $u(t)$, the optimal command $u^*$ is given by the condition:
 
 $$
-\frac{\partial H(u^*)}{\partial u} = 2u^* + \frac{\lambda_2}{mL^2} = 0 \Longleftrightarrow u^* = - \frac{\lambda_2}{2mL^2}
+\frac{\partial H(u^\*)}{\partial u} = 2u^* + \frac{\lambda_2}{mL^2} = 0 \Longleftrightarrow u^* = - \frac{\lambda_2}{2mL^2}
 $$
 
 The transversality conditions gives the Lagrange multipliers
 
 $$
-\bm{\nu} =
+\nu =
 \begin{bmatrix}
 \nu_1 \\
 \nu_2
@@ -128,7 +124,7 @@ $$
 such as
 
 $$
-\bm{\lambda}(t_f) = \frac{\partial}{\partial \bold{z}(t_f)}(\phi + \bm{\nu}^T\bm{\psi}) = 0 \Longleftrightarrow
+\lambda(t_f) = \frac{\partial}{\partial z(t_f)}(\phi + \nu^T\psi) = 0 \Longleftrightarrow
 \begin{cases}
 \lambda_1(t_f) = \nu_1 \\
 \lambda_2(t_f) = \nu_2
@@ -162,7 +158,7 @@ $$
 The final values of the costates $\lambda_1(t_f)$ and $\lambda_2(t_f)$ corresponds to Lagrange multipliers. The unknown parameters are the initial values of the costates. We want to find $\lambda_1(t_f)$ and $\lambda_2(t_f)$ such as we obtain $x_1(t_f)=x_2(t_f)=0$. From the shooting method, we generate multiples values for
 
 $$
-\bm{\lambda}(0) =
+\lambda(0) =
 \begin{bmatrix}
 \lambda_1(0) \\
 \lambda_2(0)
@@ -172,7 +168,7 @@ $$
 such that
 
 $$
-\min_{\bm{\lambda}(0)}
+\min_{\lambda(0)}
 \begin{pmatrix}
 \begin{Vmatrix}
 z_1(t_f) \\
@@ -185,34 +181,32 @@ and use a Quasi-Newton approach to solve this problem.
 
 ## Minimise the time
 
-We suppose to have a bounded command $\forall t, |u(t)| \leq u_b$. In this problem, the time $t_f$ is not fixed as it is for the previous problem, and we the same state vector $\bold{z}$ and state equation $\frac{d\bold{z}}{dt} = f(\bold{z})$.
+We suppose to have a bounded command $\forall t, \lvert u(t) \rvert \leq u_b$. In this problem, the time $t_f$ is not fixed as it is for the previous problem, and we the same state vector $z$ and state equation $\frac{dz}{dt} = f(z)$.
 
 The criteria can be written as :
 
 $$
-\min(t_f) = \min \bigg( \int_0^{t_f} \mathop{}\!\mathrm{d}t \bigg)
+\min(t_f) = \min \bigg( \int_0^{t_f} dt \bigg)
 $$
 
 The identification with the canonical form :
 
 $$
-\int_0^{t_f} q \mathop{}\!\mathrm{d}t + \phi(\bold{z}(t_f)) = \int_0^{t_f} \mathop{}\!\mathrm{d}t
+\int_0^{t_f} q dt + \phi(z(t_f)) = \int_0^{t_f} dt
 $$
 
-so $q=1$ and $\phi(\bold{z}(t_f)) = 0$. Same as before, the transversality conditions give :
+so $q=1$ and $\phi(z(t_f)) = 0$. Same as before, the transversality conditions give :
 
 $$
-\psi(t_f, \bold{z}(t_f)) =
+\psi(t_f, z(t_f)) =
 \begin{bmatrix}
 \psi_1 \\
 \psi_2
-\end{bmatrix}
-=
+\end{bmatrix} =
 \begin{bmatrix}
 z_1(t_f) \\
 z_2(t_f)
-\end{bmatrix}
-=
+\end{bmatrix} =
 \begin{bmatrix}
 0 \\
 0
@@ -222,13 +216,13 @@ $$
 And the hamiltonian is :
 
 $$
-H = q + \bm{\lambda}^T \bold{f}(\bold{z}) = 1 + \lambda_1 z_2 + \lambda_2 \bigg( -\frac{g}{L}\sin(z_1) - \frac{k}{mL^2}z_2 + \frac{u}{mL^2} \bigg)
+H = q + \lambda^T f(z) = 1 + \lambda_1 z_2 + \lambda_2 \bigg( -\frac{g}{L}\sin(z_1) - \frac{k}{mL^2}z_2 + \frac{u}{mL^2} \bigg)
 $$
 
 So the Euler-Lagrange equations for the costates remains the same.
 
 $$
-\bm{\dot{\lambda}} = - \frac{\partial H}{\partial \bold{z}} \Longleftrightarrow
+\dot{\lambda} = - \frac{\partial H}{\partial z} \Longleftrightarrow
 \begin{cases} \dot{\lambda}_1 = - \frac{\partial H}{\partial z_1} = \frac{\lambda_2 g}{L} \cos(z_1) \\
 \dot{\lambda}_2 = - \frac{\partial H}{\partial z_2} = -\lambda_1 + \frac{k \lambda_2}{mL^2}
 \end{cases}
@@ -240,12 +234,12 @@ $$
 \frac{\partial H(u^*)}{\partial u} = \frac{\lambda_2}{mL^2} = 0 \neq f(u)
 $$
 
-By hypothesis, the command $u$ is bounded. Therefore, from the definition of the hamiltonian, we remark it is linear in $u$. As we also have a saturated command, we can conclude the optimal command $u^*$ is _bang-bang_ such as :
+By hypothesis, the command $u$ is bounded. Therefore, from the definition of the hamiltonian, we remark it is linear in $u$. As we also have a saturated command, we can conclude the optimal command $u^*$ is bang-bang such as :
 
 $$
 \begin{align*}
-&\lambda_2 > 0 \implies u^*=-u_b \\
-& \lambda_2 < 0 \implies u^*=u_b
+& \lambda_2 > 0 \implies u^* = -u_b \\
+& \lambda_2 < 0 \implies u^* = u_b
 \end{align*}
 $$
 
@@ -254,7 +248,7 @@ The goal is to obtain the pendulum to its equilibrium position $(\theta, \dot{\t
 From the transversality conditions, we are in the case where the final time is free so :
 
 $$
-\lambda(t_f)=\frac{\partial}{\partial(z_{t_f})}(\phi+\bm{\nu}^T\bm{\psi}) = 0 \implies
+\lambda(t_f)=\frac{\partial}{\partial(z_{t_f})}(\phi+\nu^T\psi) = 0 \implies
 \begin{cases}
 \lambda_1(t_f) = \nu_1 \\
 \lambda_2(t_f) = \nu_2
@@ -265,14 +259,15 @@ Then, at the final time we have :
 
 $$
 \begin{align*}
-&H(x(t_f), u(t_f), \lambda(t_f), t_f) + \frac{\partial}{\partial t_f}\bigg( \phi(t_f, \bold{x}(t_f))+\psi(t_f, \bold{x}(t_f))^T\bm{\nu} \bigg) = 0 \\
-&\implies H(x(t_f), u(t_f), \lambda(t_f), t_f) = 1 + \frac{u^*(t_f)}{mL^2} \lambda_2(t_f) = 0 \\
+&H(x(t_f), u(t_f), \lambda(t_f), t_f) + \frac{\partial}{\partial t_f}\bigg( \phi(t_f, x(t_f))+\psi(t_f, x(t_f))^T\nu \bigg) = 0 \\
+&\implies H(x(t_f), u(t_f), \lambda(t_f), t_f) = 1 + \frac{u^* (t_f)}{mL^2} \lambda_2(t_f) = 0 \\
 \end{align*}
 $$
 
 Finally :
+
 $$
-1 - \frac{\text{sign}(\lambda_2(t_f))u_b}{mL^2} \lambda_2(t_f) = 0 \Longleftrightarrow |\lambda_2(t_f)| = \frac{mL^2}{u_b}
+1-\frac{\text{sign}(\lambda_2(t_f))u_b}{mL^2}\lambda_2(t_f) = 0 \Longleftrightarrow \lvert \lambda_2(t_f) \rvert =\frac{mL^2}{u_b}
 $$
 
 The 2 boundaries value problem can be written as :
@@ -284,7 +279,7 @@ $$
 \dot{\lambda}_1 = \frac{\lambda_2 g}{L}\cos(z_1) \\
 \dot{\lambda}_2 = - \lambda_1 + \frac{k \lambda_2}{mL^2} \\
 x_1(0) = \frac{\pi}{2}, \quad x_1(t_f) = 0, \quad x_2(0) = 0, \quad x_2(t_f) = 0 \\
-|\lambda_2(t_f)| = \frac{mL^2}{u_b}
+\lvert \lambda_2(t_f) \rvert = \frac{mL^2}{u_b}
 \end{cases}
 $$
 
@@ -297,14 +292,14 @@ $$
 \dot{\lambda}_1 = \frac{\lambda_2 g}{L}\cos(z_1) \\
 \dot{\lambda}_2 = - \lambda_1 + \frac{k \lambda_2}{mL^2} \\
 x_1(0) = \frac{\pi}{2}, \quad x_1(t_f) = 0, \quad x_2(0) = 0, \quad x_2(t_f) = 0 \\
-|\lambda_2(t_f)| = \frac{mL^2}{u_b}
+\lvert \lambda_2(t_f) \rvert = \frac{mL^2}{u_b}
 \end{cases}
 $$
 
 As in the previous problem, the final values of the costates $\lambda_1(t_f)$ and $\lambda_2(t_f)$ corresponds to Lagrange multipliers. The unknown parameters are the initial values of the costates. We want to find $\lambda_1(t_f)$ and $\lambda_2(t_f)$ such as we obtain $x_1(t_f)=x_2(t_f)=0$ and $H(t_f)=0$. From the shooting method, we generate multiples values for
 
 $$
-\bm{\lambda}(0) =
+\lambda(0) =
 \begin{bmatrix}
 \lambda_1(0) \\
 \lambda_2(0)
@@ -314,7 +309,7 @@ $$
 such that
 
 $$
-\min_{t_f,\bm{\lambda}(0)}
+\min_{t_f,\lambda(0)}
 \begin{pmatrix}
 \begin{Vmatrix}
 z_1(t_f) \\
@@ -331,10 +326,11 @@ $$
 \dot{\lambda}_1 = \frac{\lambda_2 g}{L}\cos(z_1) \\
 \dot{\lambda}_2 = - \lambda_1 + \frac{k \lambda_2}{mL^2}
 \end{cases} \Longleftrightarrow
-\bm{\dot{\lambda}} = A(t) \bm{\lambda}
+\dot{\lambda} = A(t) \lambda
 $$
 
 with
+
 $$
 A(t) =
 \begin{pmatrix}
@@ -346,7 +342,7 @@ $$
 Therefore any solution to this equation multiplied by a constant with respect to the time is a solution. We can look for a normalised solution on the unit circle
 
 $$
-||\bm{\lambda}(0)|| = 1
+\lVert \lambda(0) \rVert = 1
 $$
 
 We can represent this unit vector by its polar coordinates, meaning there exists an angle $\alpha$ such as :
