@@ -6,7 +6,6 @@ import numpy as np
 from scipy.integrate import solve_ivp
 import scipy.optimize
 from numdifftools import Jacobian, Hessian
-from minimise_energy_problem import compute_energy
 
 def differential_system_minimise_time(z_0: np.ndarray[float]) -> np.ndarray[float]:
     """
@@ -53,6 +52,20 @@ def criteria_minimise_time(params_: np.ndarray[float]) -> Tuple[float,np.ndarray
     criteria: float = np.linalg.norm(y_opt[0:2, -1]) + np.linalg.norm(np.abs(y_opt[3, -1])-p.m*p.l**2/p.U_B)
     return criteria, y_opt, t_opt
 
+def compute_energy_minimise_time(z_opt: np.ndarray[np.ndarray[float]], t_opt: np.ndarray[float]) -> Tuple[float, np.ndarray[float]]:
+    """
+    Compute the energy
+    - Params :
+        z_opt (np.array[np.ndarray[float]]) : Optimal solution state values
+        t_opt (np.array[float]) : Time steps corresponding to optimal solution
+    - Returns :
+        energy (float) : energy, in Joules
+        u_estim (np.array[float]) : Estimated control
+    """
+    u_estim: float = -np.sign(z_opt[3])*p.U_B
+    energy: float = np.trapz(y=u_estim**2, x=t_opt)
+    return energy, u_estim
+
 def solve_minimise_time() -> Tuple[np.ndarray[float], np.ndarray[float]]:
     """
     Solve the two boundaries value problem
@@ -73,7 +86,7 @@ def display_minimise_time(z_opt: np.ndarray[np.ndarray[float]], t_opt: np.ndarra
     """
     energy: float
     u_estim: np.ndarray[float]
-    energy, u_estim = compute_energy(z_opt, t_opt)
+    energy, u_estim = compute_energy_minimise_time(z_opt, t_opt)
 
     fig1, ax1 = plt.subplots(1, 2, sharex=True)
     fig1.set_figheight(5)

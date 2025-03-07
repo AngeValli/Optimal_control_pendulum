@@ -51,7 +51,7 @@ def solve_minimise_energy() -> Tuple[np.ndarray[float], np.ndarray[float]]:
     _, z_opt, t_opt = criteria_minimise_energy(lambda_=lambda_opt)
     return z_opt, t_opt
 
-def compute_energy(z_opt: np.ndarray[np.ndarray[float]], t_opt: np.ndarray[float]) -> Tuple[float, np.ndarray[float]]:
+def compute_energy_minimise_energy(z_opt: np.ndarray[np.ndarray[float]], t_opt: np.ndarray[float]) -> Tuple[float, np.ndarray[float]]:
     """
     Compute the energy
     - Params :
@@ -74,7 +74,7 @@ def display_minimise_energy(z_opt: np.ndarray[np.ndarray[float]], t_opt: np.ndar
     """
     energy: float
     u_estim: np.ndarray[float]
-    energy, u_estim = compute_energy(z_opt, t_opt)
+    energy, u_estim = compute_energy_minimise_energy(z_opt, t_opt)
 
     fig1, ax1 = plt.subplots(1, 2, sharex=True)
     fig1.set_figheight(5)
