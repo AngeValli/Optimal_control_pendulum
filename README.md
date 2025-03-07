@@ -1,10 +1,6 @@
 # Optimal_control_pendulum
 
-Implementation of an optimal control strategy for a nonlinear system of a pendulum.
-
-<img src="./pendulum.png" alt="pendulum" width="200"/>
-
-The continuous-time nonlinear dynamic of the system can be described by the following ODE:
+Implementation of an optimal control strategy for a nonlinear system of a pendulum. The continuous-time nonlinear dynamic of the system can be described by the following ODE:
 
 $$
 m L^2 \ddot{\theta} = -m g L \sin(\theta)-k \dot{\theta} + u
